@@ -9,15 +9,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="name"/>
+        android:text="User Name: "
+        android:textSize="32dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="smt else"/>
+        android:text="User Email: "
+        android:textSize="32dp"/>
 
     <View
         android:padding="10dp"

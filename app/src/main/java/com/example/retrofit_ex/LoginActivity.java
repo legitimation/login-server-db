@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import java.util.HashMap;
 
@@ -51,6 +52,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.kakao_login_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlekakaoLoginDialog();
+            }
+        });
+
+
     }
 
     private void handleLoginDialog() {
@@ -73,6 +82,62 @@ public class LoginActivity extends AppCompatActivity {
 
                 map.put("email", emailEdit.getText().toString());
                 map.put("password", passwordEdit.getText().toString());
+
+                Call<LoginResult> call = retrofitInterface.executeLogin(map);
+
+                call.enqueue(new Callback<LoginResult>() {
+                    @Override
+                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+
+                        if (response.code() == 200) {
+
+                            LoginResult result = response.body();
+
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
+                            builder1.setTitle(result.getName());
+                            builder1.setMessage(result.getEmail());
+
+                            builder1.show();
+                            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("name",result.getName());
+                            startActivity(intent);
+
+                        } else if (response.code() == 404) {
+                            Toast.makeText(LoginActivity.this, "Wrong Credentials",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<LoginResult> call, Throwable t) {
+                        Toast.makeText(LoginActivity.this, t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void handlekakaoLoginDialog() {
+
+//        View view = getLayoutInflater().inflate(R.layout.login_dialog, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+//        builder.setView(view).show();
+
+        ImageButton loginBtn = findViewById(R.id.kakao_login_button);
+//        final EditText emailEdit = view.findViewById(R.id.emailEdit);
+//        final EditText passwordEdit = view.findViewById(R.id.passwordEdit);
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                HashMap<String, String> map = new HashMap<>();
+
+                map.put("email", "jeff426@naver.com");
+                map.put("password", "");
 
                 Call<LoginResult> call = retrofitInterface.executeLogin(map);
 
