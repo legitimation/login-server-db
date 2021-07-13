@@ -242,6 +242,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 HashMap<String, String> map = new HashMap<>();
 
+                //현재 카카오로그인 한 고정값으로 지정, 회원탈퇴 기능 추가시 추가 보완 가능
                 map.put("email", "jeff426@naver.com");
                 map.put("password", "");
 
