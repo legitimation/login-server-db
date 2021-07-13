@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Integer> images=new ArrayList<>();
         images.add(R.drawable.profile);
-        images.add(R.drawable.gallery);
-        images.add(R.drawable.music);
+        images.add(R.drawable.chat2);
+        images.add(R.drawable.noticeboard);
 
         for(int i=0;i<3;i++) tab.getTabAt(i).setIcon(images.get(i));
     }
